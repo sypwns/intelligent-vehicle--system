@@ -24,12 +24,15 @@ To develop a mobile vehicle-management prototype and evaluate whether adding veh
 Two recommendation configurations will be compared:
 1. Weather and road-condition inputs.
 2. The same inputs combined with vehicle-health indicators.
-
+The primary evaluation metric will be recommendation agreement rate against independently reviewed reference assessments. Unsuitable-route selection rate will be used as a secondary metric.
 Both configurations will use matched scenarios and independently reviewed reference assessments. No experimental results are available yet.
 
 ## Team
 - Shurenova Karima
 - Yerbolat Aisha
+
+Shurenova Karima: Vehicle monitoring, supported remote-control integration, weather-based route risk assessment, and mobile application functionality.
+Yerbolat Aisha: Machine-learning-based vehicle diagnostics, intelligent maintenance assistance, diagnostic explanations, and personalized maintenance planning.
 
 Detailed responsibilities will be recorded in YouTrack.
 
@@ -49,10 +52,10 @@ The project focuses on a mobile application prototype and selected diagnostic an
 The project is in the research and planning stage. Research assignments have been drafted. Implementation and evaluation are pending. No user discussions have been conducted yet.
 
 ## Technologies
-The technology stack has not yet been selected.
+The planned technology stack includes Flutter for mobile application development, Python/FastAPI for backend services, and PostgreSQL for data storage. Machine learning and external API technologies will be finalized during implementation planning.
 
 ## Project Links
-- YouTrack: pending project creation.
+- YouTrack: Project created; task organization and tracking are in progress.
 - Documentation: pending upload to this repository.
 
 ## Setup and Testing
