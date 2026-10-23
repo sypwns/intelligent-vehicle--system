@@ -13,7 +13,7 @@ ML inference, weather APIs, vehicle control, or message delivery.
 
 ## 2. Prototype Access
 
-Prototype link: Not added yet.
+Prototype link: [https://creative-moxie-4dca91.netlify.app/](https://creative-moxie-4dca91.netlify.app/)
 
 The link will be added after sharing access is configured and checked.
 
