@@ -54,19 +54,23 @@ For each decision, record the date, responsible reviewers, technical comparison 
 
 - Decision needed: Confirm supported Android devices/versions, SDK compatibility and technical comparison results.
 
-## ADR-003 — Backend framework and data storage
+## ADR-003 — Node.js backend and pending data storage selection
 
-- Status: Pending
+- Status: Node.js selected by the team; framework, storage, and hosting details pending review.
 
-- Context: The system needs input validation, services, persistence, API coordination, and secure configuration (FR-01, 03, 08–14; NFR-02–04, 06, 08).
+- Context: JolSense needs an API layer for input validation, coordinating vehicle monitoring, diagnostics, maintenance, weather/routing services, Blizzard Survival Mode sessions and alerts, and authorized remote-control adapters (FR-01, 03, 08–14; NFR-02–04, 06, 08).
 
-- Candidates: Python/FastAPI or an alternative backend; PostgreSQL, SQLite or another appropriate database. No option is declared selected solely by appearing here.
+- Selected backend platform: Node.js. Backend services will expose validated APIs to the Flutter client and coordinate external providers, persistence and safety workflows. A specific Node.js framework (for example, Express or NestJS) has not yet been selected.
 
-- Selection criteria: Student familiarity, deployment complexity, API/model interoperability, persistence needs, cost, security support, and testability.
+- Alternatives considered: Python/FastAPI and other backend runtimes. The technology comparison should document the reasons for the team's Node.js choice rather than claim an evaluation that has not been completed.
 
-- Trade-offs: Server/database services add setup and operational dependencies; fully local storage simplifies demonstrations but may limit future synchronization.
+- Rationale: Node.js supports an API-oriented architecture and asynchronous coordination of external services, which fits the proposed monitoring, weather/routing, and notification workflows. Integration with any diagnostic ML implementation requires a defined service boundary or interoperable inference interface.
 
-- Decision needed: Record at least 2–3 alternatives per key technology and a justified selection in `docs/technology-comparison/` before setting up dependencies.
+- Data storage: Pending. PostgreSQL, SQLite, or another justified solution will be compared based on profiles, maintenance history, session records, privacy and deployment needs.
+
+- Trade-offs: Requires safe asynchronous error handling, authentication and authorization, dependency management, testing of missed heartbeats and notification retries, and clear communication between Node.js services and future ML inference.
+
+- Decision needed: Confirm Node.js framework, database, hosting, deployment and scheduler approach; document technical comparison and review evidence. Do not claim Node.js implementation is complete.
 
 ## ADR-004 — Diagnostic ML as a bounded, versioned component
 
@@ -169,14 +173,14 @@ For each decision, record the date, responsible reviewers, technical comparison 
 - Status: Proposed
 - Context: JolSense plans a distinctive support feature for drivers who may be stranded in low temperatures outside familiar urban areas. A stationary vehicle alone does not establish danger; a powered-off phone, background OS restriction, missing GPS or network outage can prevent on-device checks.
 - Proposed choice: Implement an explicitly enabled `Normal → Suspected → Check-in → Escalation` flow, with I'm fine, I need help, configurable snooze and repeated check-ins. Use speed/stationary duration, optional engine data, temperature, weather and approximate location/safe-place context. Store unavailable inputs as unknown and make thresholds adjustable. Do not infer emergency automatically from one weak signal.
-- Monitoring responsibility: The phone attempts periodic heartbeats while monitoring can run. A backend tracks active sessions, last-received heartbeat and last-known location; missing heartbeats can trigger a possible loss of contact alert after a configurable grace period, not a confirmed-stranding message.
+- Monitoring responsibility: The phone attempts periodic heartbeats while monitoring can run. The planned Node.js backend tracks active sessions, last-received heartbeat and last-known location; missing heartbeats can trigger a possible loss of contact alert after a configurable grace period, not a confirmed-stranding message.
 - Alert responsibility: Notify only contacts who explicitly opted in. For the prototype, use a test Telegram bot with test contacts; consider an authorized SMS gateway later. Clearly differentiate queued, sent-to-provider, failed and provider-confirmed delivery, where possible. If no connection exists, queue locally when possible and retry; the server cannot retrieve unsent phone data after disconnection.
 - Privacy and safety: Require user enablement, contact consent, minimal retention and a way to revoke sharing. Do not automatically call 112; offer a manual emergency-call action. Clearly show limited monitoring coverage and that alerts or rescue cannot be guaranteed.
 - Alternatives: Phone-only alerts; server-only monitoring; direct phone SMS. Phone-only cannot reliably operate after power loss, server-only lacks fresh sensor readings during disconnection, and background/direct SMS behavior differs materially across Android and iOS.
 - Rationale: Hybrid detection and heartbeat escalation offers a testable safety workflow while exposing uncertainty and platform limitations.
 - Trade-offs: False positives from rest stops/traffic, false negatives from missing inputs, notification fatigue, server/provider cost and availability, sensitive location handling, permission/OS constraints and delayed delivery.
 - Prototype validation: Simulated stationary/cold/remote scenarios plus counterexamples (traffic jam, planned stop, city parking); timed check-in/no-response flows, missed heartbeat tests, offline/queue/retry tests, permission denial and test-contact delivery logging. Measure detection delay, false alarms within the defined constructed scenarios and end-to-end alert timing; do not represent simulated outcomes as field evidence.
-- Decision needed: Confirm requirements IDs, background behavior for each target OS, backend/scheduler and notification provider, safeguards against duplicate alerts, heartbeat/check-in cadence, storage/retention policy, and independent review of the escalation language.
+- Decision needed: Confirm requirements IDs, background behavior for each target OS, Node.js scheduling approach and notification provider, safeguards against duplicate alerts, heartbeat/check-in cadence, storage/retention policy, and independent review of the escalation language.
 
 ## 2. Open decisions and review checklist
 
@@ -186,7 +190,7 @@ For each decision, record the date, responsible reviewers, technical comparison 
 
 | Mobile framework and target platform | Flutter proposed | Platform support, alternatives and stakeholder/team review |
 
-| Backend technology | Pending | Alternatives, team capacity, API/ML integration and deployment plan |
+| Backend technology | Node.js selected; framework and implementation pending | Document Node.js rationale, compare alternatives, select framework, confirm API/ML integration and deployment plan |
 
 | Storage solution | Pending | Data retention/security requirements, local vs server needs, alternatives |
 
