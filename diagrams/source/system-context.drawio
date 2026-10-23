@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="jolsense-context" name="System Context">
+    <mxGraphModel dx="1820" dy="1350" grid="1" gridSize="10" page="1" pageWidth="1820" pageHeight="1350">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="n1" value="JolSense | System Context Diagram" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=34;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="30" y="24" width="1760" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" value="Draft - planned system and external interactions" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=20;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="30" y="92" width="1760" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" value="" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#eaf3fc;strokeColor=#285b89;fontColor=#182c45;fontSize=20;align=center;verticalAlign=middle;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="650" y="180" width="500" height="1000" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" value="JolSense" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=36;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="675" y="480" width="450" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" value="Vehicle monitoring and diagnostics&#10;Weather-aware trip support&#10;Supported remote controls&#10;Blizzard Mode safety sessions" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=23;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="675" y="580" width="450" height="215" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" value="Active safety sessions:&#10;store last known location;&#10;monitor check-ins and heartbeats;&#10;request alerts when required." style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=20;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="675" y="850" width="450" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" value="Driver" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f5f8fb;strokeColor=#244d70;fontColor=#182c45;fontSize=23;align=center;verticalAlign=middle;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="240" width="330" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="" style="endArrow=block;html=0;strokeColor=#486681;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="278" as="sourcePoint" />
+            <mxPoint x="650" y="278" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n9" value="Requests, settings,&#10;check-in responses" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="374" y="216" width="272" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" value="" style="endArrow=block;html=0;strokeColor=#486681;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="650" y="335" as="sourcePoint" />
+            <mxPoint x="370" y="335" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n11" value="Status, recommendations,&#10;safety prompts" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="374" y="340" width="272" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" value="Vehicle / OBD-II Adapter" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f5f8fb;strokeColor=#244d70;fontColor=#182c45;fontSize=23;align=center;verticalAlign=middle;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="480" width="330" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" value="" style="endArrow=block;html=0;strokeColor=#486681;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="518" as="sourcePoint" />
+            <mxPoint x="650" y="518" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n14" value="Available telemetry,&#10;diagnostic trouble codes" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="374" y="456" width="272" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="n15" value="Phone Location Service" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f5f8fb;strokeColor=#244d70;fontColor=#182c45;fontSize=23;align=center;verticalAlign=middle;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="720" width="330" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" value="" style="endArrow=block;html=0;strokeColor=#486681;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="758" as="sourcePoint" />
+            <mxPoint x="650" y="758" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n17" value="Location, timestamps,&#10;available movement data" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="374" y="696" width="272" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="n18" value="Emergency Contact" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f5f8fb;strokeColor=#244d70;fontColor=#182c45;fontSize=23;align=center;verticalAlign=middle;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="960" width="330" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="e19" value="" style="endArrow=block;html=0;strokeColor=#486681;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="998" as="sourcePoint" />
+            <mxPoint x="650" y="998" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n20" value="Consent / opt-in" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="374" y="936" width="272" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="e21" value="" style="endArrow=block;html=0;strokeColor=#486681;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="650" y="1055" as="sourcePoint" />
+            <mxPoint x="370" y="1055" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n22" value="Invitation; safety alert&#10;with last known location" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="374" y="1060" width="272" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="n23" value="Weather API" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f5f8fb;strokeColor=#244d70;fontColor=#182c45;fontSize=23;align=center;verticalAlign=middle;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="240" width="330" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="e24" value="" style="endArrow=block;html=0;strokeColor=#486681;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1150" y="278" as="sourcePoint" />
+            <mxPoint x="1450" y="278" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n25" value="Location / time query" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1154" y="216" width="292" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="e26" value="" style="endArrow=block;html=0;strokeColor=#486681;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1450" y="335" as="sourcePoint" />
+            <mxPoint x="1150" y="335" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n27" value="Forecasts and available&#10;weather warnings" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1154" y="340" width="292" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="n28" value="Routing API" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f5f8fb;strokeColor=#244d70;fontColor=#182c45;fontSize=23;align=center;verticalAlign=middle;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="480" width="330" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="e29" value="" style="endArrow=block;html=0;strokeColor=#486681;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1150" y="518" as="sourcePoint" />
+            <mxPoint x="1450" y="518" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n30" value="Route query" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1154" y="456" width="292" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="e31" value="" style="endArrow=block;html=0;strokeColor=#486681;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1450" y="575" as="sourcePoint" />
+            <mxPoint x="1150" y="575" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n32" value="Candidate routes and&#10;available road information" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1154" y="580" width="292" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="n33" value="Authorized Vehicle&#10;Control Service" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f5f8fb;strokeColor=#244d70;fontColor=#182c45;fontSize=23;align=center;verticalAlign=middle;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="720" width="330" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="e34" value="" style="endArrow=block;html=0;strokeColor=#486681;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1150" y="758" as="sourcePoint" />
+            <mxPoint x="1450" y="758" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n35" value="Authorized supported&#10;commands" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1154" y="696" width="292" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="e36" value="" style="endArrow=block;html=0;strokeColor=#486681;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1450" y="815" as="sourcePoint" />
+            <mxPoint x="1150" y="815" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n37" value="Command result / status" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1154" y="820" width="292" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="n38" value="Notification Service" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f5f8fb;strokeColor=#244d70;fontColor=#182c45;fontSize=23;align=center;verticalAlign=middle;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="960" width="330" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="e39" value="" style="endArrow=block;html=0;strokeColor=#486681;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1150" y="998" as="sourcePoint" />
+            <mxPoint x="1450" y="998" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n40" value="Alert request for&#10;opted-in contact" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1154" y="936" width="292" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="e41" value="" style="endArrow=block;html=0;strokeColor=#486681;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1450" y="1055" as="sourcePoint" />
+            <mxPoint x="1150" y="1055" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n42" value="Submission / delivery status&#10;where supported" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1154" y="1060" width="292" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="n43" value="Planned integrations: providers and compatibility require verification.&#10;Contact alerts use the notification service; its delivery status does not prove the message was read.&#10;Heartbeat loss indicates lost communication, not a confirmed emergency. JolSense is not a rescue service." style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontColor=#182c45;fontSize=18;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1210" width="1740" height="105" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
