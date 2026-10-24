@@ -13,7 +13,7 @@ No real vehicle actuation or intentionally dangerous driving is required. Use sa
 ## 2. Environments, instruments and recorded evidence
 
 - Mobile: document Flutter version, target Android emulator/device, OS version, permissions and build identifier when available.
-- Backend: document Node.js and framework versions once chosen, configuration example, service URL and scheduler settings.
+- Backend: Node.js is selected. Record the chosen framework, Node.js version, service URL, authentication, configuration example, and scheduler settings once implemented. Aisha leads backend/mobile integration; Karima leads the ML inference service and model interface; Blizzard Mode backend behavior is jointly reviewed.
 - Test data: deterministic vehicle records with units, timestamps, IDs, DTCs or health states; weather/route fixture responses with provider/time provenance; nonpersonal simulated geographic coordinates.
 - Emergency tests: opted-in test contacts and a test notification provider; simulated heartbeat loss, no-response, acknowledgement and offline events.
 - Record each executed case with case ID, date, build/commit, environment, input fixture, expected output, actual output, pass/fail, defects and evidence link. Leave these blank until a run is performed.
@@ -23,20 +23,20 @@ No real vehicle actuation or intentionally dangerous driving is required. Use sa
 | Test ID | Requirements | Planned case | Expected acceptance outcome | Approach |
 |---|---|---|---|---|
 | T-01 | FR-01–03 | Create/edit/delete vehicle; load valid and malformed telemetry | Profile changes persist; telemetry source/units/time visible; invalid input rejected | UI/unit test and sample replay |
-| T-02 | FR-02–05, FR-19 | Missing and stale readings, unknown DTC | Shows unavailable/stale/unknown without implying healthy status | Negative input fixtures |
+| T-02 | FR-02–05, FR-25 | Missing and stale readings, unknown DTC | Shows unavailable/stale/unknown without implying healthy status | Negative input fixtures |
 | T-03 | FR-06–07 | Defined fault/anomaly input and unsupported data | Model output and uncertainty/version are distinguishable from confirmed diagnosis; invalid input handled | ML contract and UI tests |
 | T-04 | FR-08–09 | Create/change maintenance event; assess next-service reminder | Saved history and explained trigger; insufficient data clearly reported | Functional test |
 | T-05 | FR-10–11 | Weather/route providers return two candidates, one candidate or failure | Correct candidate count, distance/duration, provider times; no invented alternatives | Provider adapter tests |
-| T-06 | FR-12–14 | Compare weather/road-only vs vehicle-aware assessment on same routes | Reasons and changed/unchanged outputs visible; health absence labeled; postpone/insufficient option where applicable | Paired fixtures and content review |
-| T-07 | FR-16–18, NFR-05 | Mock control and unauthorized request | Mock commands do not actuate; unsupported actions disabled; unauthorized request blocked | Sandbox and security test |
-| T-08 | FR-20, NFR-01, NFR-11 | Navigate core sections, scale text, inspect status labels | Features accessible, understandable, readable, not color-only | Manual accessibility walkthrough |
-| T-09 | Blizzard functional requirements (assign final FR IDs) | Simulate 20-minute stationary interval under low temperature away from known places | Defined thresholds lead to suspected-stop state and check-in; inputs and rules logged | Scenario/state-transition test |
-| T-10 | Blizzard functional requirements | Traffic jam, urban parking, rest stop, missing speed or location | No unjustified confirmed-emergency claim; no-response only where specified; missing data visible | False-positive/negative scenarios |
-| T-11 | Blizzard functional requirements | Select “I'm fine”, snooze, or “I need help”; let check-in time out | Pause/recheck behavior and escalation follow configured states | Mobile UI + timer fixtures |
-| T-12 | Blizzard functional requirements and privacy NFRs | Opt-in contact, revoke contact, trigger alert | Only authorized test recipient receives permitted last-known location/time and contextual details; opt-out respected | Integration/privacy tests |
-| T-13 | Blizzard functional requirements and reliability NFRs | Stop heartbeats; lose network; restore connectivity | Server identifies timeout as possible loss of contact, not proof of stranding; retry/status recorded; duplicate alerts limited | Clock-controlled backend/integration tests |
+| T-06 | FR-18–20 | Compare weather/road-only vs vehicle-aware assessment on same routes | Reasons and changed/unchanged outputs visible; health absence labeled; postpone/insufficient option where applicable | Paired fixtures and content review |
+| T-07 | FR-22–24, NFR-05 | Mock control and unauthorized request | Mock commands do not actuate; unsupported actions disabled; unauthorized request blocked | Sandbox and security test |
+| T-08 | FR-26, NFR-01, NFR-11 | Navigate core sections, scale text, inspect status labels | Features accessible, understandable, readable, not color-only | Manual accessibility walkthrough |
+| T-09 | FR-12–13, FR-16 | Simulate 20-minute stationary interval under low temperature away from known places | Defined thresholds lead to suspected-stop state and check-in; inputs and rules logged | Scenario/state-transition test |
+| T-10 | FR-12, FR-16–17, NFR-13 | Traffic jam, urban parking, rest stop, missing speed or location | No unjustified confirmed-emergency claim; no-response only where specified; missing data visible | False-positive/negative scenarios |
+| T-11 | FR-13–14, NFR-13 | Select “I'm fine”, snooze, or “I need help”; let check-in time out | Pause/recheck behavior and escalation follow configured states | Mobile UI + timer fixtures |
+| T-12 | FR-14, NFR-14–15 | Opt-in contact, revoke contact, trigger alert | Only authorized test recipient receives permitted last-known location/time and contextual details; opt-out respected | Integration/privacy tests |
+| T-13 | FR-15, FR-17, NFR-13, NFR-15 | Stop heartbeats; lose network; restore connectivity | Server identifies timeout as possible loss of contact, not proof of stranding; retry/status recorded; duplicate alerts limited | Clock-controlled backend/integration tests |
 
-The actual Blizzard requirement IDs should replace the provisional references after numbering is finalized in the requirements specification.
+All IDs above correspond to the current requirements specification. Review mappings whenever a requirement ID or scope changes.
 
 ## 4. Non-functional and security checks
 
@@ -48,7 +48,7 @@ The actual Blizzard requirement IDs should replace the provisional references af
 | NFR-08, NFR-12 — reproducibility | Clean checkout/setup with documented dependencies and fixtures | Another team member can reproduce an identified deterministic case when runnable implementation exists |
 | NFR-09 — performance | Locally available dashboard and saved scenario, 20 trials in documented environment | Target: within 3 seconds in at least 95% of trials; external network delays reported separately |
 | NFR-10, NFR-11 — compatibility and accessibility | Declared Android target, font scaling, control labels | Explicit device/OS support list; meaningful accessible labels |
-| Blizzard security/reliability NFRs | Consent, heartbeat loss, interrupted/background mobile execution, retry and status transitions | Clearly states actual status (pending/sent/confirmed if receipt known), platform limits and inability to guarantee rescue |
+| NFR-13–15 — Blizzard reliability/privacy/status | Consent, heartbeat loss, interrupted/background mobile execution, retry and status transitions | Clearly states actual status (pending/sent/confirmed if receipt known), platform limits and inability to guarantee rescue |
 
 ## 5. Metrics and baseline definitions
 
@@ -70,7 +70,7 @@ For Blizzard Mode, test traffic queues, city stops, valid safe rests, loss of GP
 
 ## 7. Execution stages and exit criteria
 
-1. Planning/readiness: finalize requirement IDs, test fixtures, providers, mock contact consent, config templates and expected outputs.
+1. Planning/readiness: verify existing requirement IDs against the requirements specification; define test fixtures, providers, mock contact consent, config templates and expected outputs.
 2. Component verification: run unit tests and state-machine tests against deterministic inputs; retain run logs and defects.
 3. Integration verification: exercise Flutter ↔ Node.js ↔ mock/provider interfaces, persistence, retries and failure status.
 4. End-to-end walkthrough: demonstrate monitoring, diagnosis, maintenance, trip planning, mock controls and Blizzard Mode with only permitted test materials.
