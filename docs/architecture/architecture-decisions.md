@@ -26,7 +26,7 @@ For each decision, record the date, responsible reviewers, technical comparison 
 
 - Status: Proposed
 
-- Context: The application has vehicle monitoring, diagnostics, maintenance, routing/weather and optional control providers. Any particular provider may be unavailable or unsupported (FR-03, FR-04, FR-10–11, FR-16–19; NFR-07, NFR-12).
+- Context: The application has vehicle monitoring, diagnostics, maintenance, routing/weather and optional control providers. Any particular provider may be unavailable or unsupported (FR-03, FR-04, FR-10–11, FR-18–20, FR-22–24; NFR-07, NFR-12).
 
 - Proposed choice: Isolate mobile UI from service logic, and isolate each external provider behind a defined adapter/interface. Support sample/replay adapters independently from live integrations.
 
@@ -42,7 +42,7 @@ For each decision, record the date, responsible reviewers, technical comparison 
 
 - Status: Proposed (team's stated preference)
 
-- Context: One driver-facing mobile application should present all planned features (FR-01, 02, 05, 08, 10–14, 16, 20).
+- Context: One driver-facing mobile application should present all planned features (FR-01–02, FR-05, FR-08, FR-10–11, FR-13, FR-18–20, FR-22, FR-26).
 
 - Proposed choice: Use Flutter to implement the mobile client and a consistent interface for status, diagnostics, maintenance, trips and control availability.
 
@@ -58,7 +58,9 @@ For each decision, record the date, responsible reviewers, technical comparison 
 
 - Status: Node.js selected by the team; framework, storage, and hosting details pending review.
 
-- Context: JolSense needs an API layer for input validation, coordinating vehicle monitoring, diagnostics, maintenance, weather/routing services, Blizzard Survival Mode sessions and alerts, and authorized remote-control adapters (FR-01, 03, 08–14; NFR-02–04, 06, 08).
+- Context: JolSense needs an API layer for input validation, coordinating vehicle monitoring, diagnostics, maintenance, weather/routing services, Blizzard Survival Mode sessions and alerts, and authorized remote-control adapters (FR-01, FR-03, FR-08–11, FR-12–20; NFR-02–04, 06, 08).
+
+- Implementation lead: Yerbolat Aisha leads Node.js backend integration and coordinates its API with the mobile application. Shurenova Karima leads the diagnostic ML service and model interface. Both own joint integration review for Blizzard Survival Mode backend behavior.
 
 - Selected backend platform: Node.js. Backend services will expose validated APIs to the Flutter client and coordinate external providers, persistence and safety workflows. A specific Node.js framework (for example, Express or NestJS) has not yet been selected.
 
@@ -76,6 +78,8 @@ For each decision, record the date, responsible reviewers, technical comparison 
 
 - Status: Proposed
 
+- Engineering lead: Shurenova Karima owns the diagnostic ML service and model interface; Yerbolat Aisha coordinates Node.js service integration and API contracts.
+
 - Context: The diploma includes ML-based fault/anomaly assessments and understandable warnings, but compatible labeled vehicle data and evaluated accuracy are not yet established (FR-05–07; NFR-03).
 
 - Proposed choice: Define an explicit diagnostic input/output schema and treat trained model inference as a separate logical component. The response must preserve model/rule version, source record, score/label where supported, and limitations.
@@ -92,7 +96,7 @@ For each decision, record the date, responsible reviewers, technical comparison 
 
 - Status: Proposed
 
-- Context: Route recommendations must account for weather/road risks, while additional health indicators may affect suitability (FR-10–14; NFR-03).
+- Context: Route recommendations must account for weather/road risks, while additional health indicators may affect suitability (FR-10–11, FR-18–20; NFR-03).
 
 - Proposed choice: Keep two logically comparable assessment configurations: (A) weather/road inputs only; (B) those same inputs plus validated vehicle-health information. Preserve routes and environmental inputs in comparisons; report missing health data as missing.
 
@@ -108,7 +112,7 @@ For each decision, record the date, responsible reviewers, technical comparison 
 
 - Status: Proposed safety constraint, required by initial requirements
 
-- Context: OBD-II telemetry access does not grant remote-control capability. Real operations require a compatible authorized provider and safety measures (FR-16–18; NFR-05).
+- Context: OBD-II telemetry access does not grant remote-control capability. Real operations require a compatible authorized provider and safety measures (FR-22–24; NFR-05).
 
 - Proposed choice: Demonstrate capability availability and any commands only through clearly labeled local/mock/sandbox mode. Real commands are outside the mandatory initial prototype.
 
@@ -124,7 +128,7 @@ For each decision, record the date, responsible reviewers, technical comparison 
 
 - Status: Proposed
 
-- Context: Separate telemetry, weather, routing and diagnostic sources can be stale, inconsistent or absent; output must remain interpretable (FR-02–03, 05, 10, 19; NFR-02–03, 07).
+- Context: Separate telemetry, weather, routing and diagnostic sources can be stale, inconsistent or absent; output must remain interpretable (FR-02–03, FR-05, FR-10, FR-19, FR-25; NFR-02–03, 07).
 
 - Proposed choice: Each displayed result retains input source/type, timestamps, units and applicable rule/model version. Missing or invalid measurements yield “Unavailable” or “Insufficient information,” not a fabricated safe state. Separate raw inputs from processed results.
 
@@ -173,6 +177,8 @@ For each decision, record the date, responsible reviewers, technical comparison 
 - Status: Proposed
 - Context: JolSense plans a distinctive support feature for drivers who may be stranded in low temperatures outside familiar urban areas. A stationary vehicle alone does not establish danger; a powered-off phone, background OS restriction, missing GPS or network outage can prevent on-device checks.
 - Proposed choice: Implement an explicitly enabled `Normal → Suspected → Check-in → Escalation` flow, with I'm fine, I need help, configurable snooze and repeated check-ins. Use speed/stationary duration, optional engine data, temperature, weather and approximate location/safe-place context. Store unavailable inputs as unknown and make thresholds adjustable. Do not infer emergency automatically from one weak signal.
+- Joint responsibility: Aisha and Karima review the Blizzard Mode Node.js session/heartbeat/escalation integration together before any safety-related changes are accepted.
+
 - Monitoring responsibility: The phone attempts periodic heartbeats while monitoring can run. The planned Node.js backend tracks active sessions, last-received heartbeat and last-known location; missing heartbeats can trigger a possible loss of contact alert after a configurable grace period, not a confirmed-stranding message.
 - Alert responsibility: Notify only contacts who explicitly opted in. For the prototype, use a test Telegram bot with test contacts; consider an authorized SMS gateway later. Clearly differentiate queued, sent-to-provider, failed and provider-confirmed delivery, where possible. If no connection exists, queue locally when possible and retry; the server cannot retrieve unsent phone data after disconnection.
 - Privacy and safety: Require user enablement, contact consent, minimal retention and a way to revoke sharing. Do not automatically call 112; offer a manual emergency-call action. Clearly show limited monitoring coverage and that alerts or rescue cannot be guaranteed.
@@ -180,7 +186,7 @@ For each decision, record the date, responsible reviewers, technical comparison 
 - Rationale: Hybrid detection and heartbeat escalation offers a testable safety workflow while exposing uncertainty and platform limitations.
 - Trade-offs: False positives from rest stops/traffic, false negatives from missing inputs, notification fatigue, server/provider cost and availability, sensitive location handling, permission/OS constraints and delayed delivery.
 - Prototype validation: Simulated stationary/cold/remote scenarios plus counterexamples (traffic jam, planned stop, city parking); timed check-in/no-response flows, missed heartbeat tests, offline/queue/retry tests, permission denial and test-contact delivery logging. Measure detection delay, false alarms within the defined constructed scenarios and end-to-end alert timing; do not represent simulated outcomes as field evidence.
-- Decision needed: Confirm requirements IDs, background behavior for each target OS, Node.js scheduling approach and notification provider, safeguards against duplicate alerts, heartbeat/check-in cadence, storage/retention policy, and independent review of the escalation language.
+- Decision needed: Validate configured thresholds, background behavior for each target OS, Node.js scheduling approach and notification provider, safeguards against duplicate alerts, heartbeat/check-in cadence, storage/retention policy, and independent review of the escalation language.
 
 ## 2. Open decisions and review checklist
 
