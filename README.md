@@ -318,6 +318,8 @@ Group: SE-2405
 
 The project uses GitHub for version control and YouTrack for task tracking.
 
+Tasks, responsibilities, priorities, deadlines, and acceptance criteria are tracked in [YouTrack — IVS](https://sypwns.youtrack.cloud/issues/IVS).
+
 Documentation and implementation changes should be linked to relevant
 tasks where possible and reviewed through pull requests.
 
