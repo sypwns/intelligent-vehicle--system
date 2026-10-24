@@ -1,7 +1,7 @@
 
 # Mobile Application
 
-This folder is reserved for the SmartCar AI mobile application.
+This folder is reserved for the JolSense mobile application.
 
 Planned technology: Flutter.
 
