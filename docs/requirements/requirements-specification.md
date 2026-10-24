@@ -8,11 +8,11 @@ Repository location: `docs/requirements/requirements-specification.md`
 
 ## 1. Purpose and scope
 
-This document defines the planned requirements for a driver-facing mobile application that combines vehicle status monitoring, machine-learning-based fault assessment, understandable diagnostic and maintenance guidance, weather-aware travel recommendations, and **authorized** remote vehicle functions where a compatible integration is available.
+This document defines the planned requirements for a driver-facing mobile application that combines vehicle status monitoring, machine-learning-based fault assessment, understandable diagnostic and maintenance guidance, weather-aware travel recommendations, and authorized remote vehicle functions where a compatible integration is available.
 
-The principal users are vehicle owners and drivers. The application is intended as **decision support**, not a replacement for a mechanic, official weather warnings, vehicle safety systems, or a driver's judgment. No live vehicle connection, dataset availability, supplier integration, or completed functionality is claimed at this stage.
+The principal users are vehicle owners and drivers. The application is intended as decision support, not a replacement for a mechanic, official weather warnings, vehicle safety systems, or a driver's judgment. No live vehicle connection, dataset availability, supplier integration, or completed functionality is claimed at this stage.
 
-The broader diploma product includes all five functions. The separately defined research comparison—weather/road-only route recommendations versus recommendations also considering vehicle-health indicators—can inform later evaluation but does **not** substitute for verification of the application requirements in this document.
+The broader diploma product includes all five functions. The separately defined research comparison—weather/road-only route recommendations versus recommendations also considering vehicle-health indicators—can inform later evaluation but does not substitute for verification of the application requirements in this document.
 
 ## 2. Requirements management
 
@@ -108,20 +108,22 @@ Performance thresholds are preliminary engineering targets, not measured perform
 
 Minimum verification record template: `Requirement ID | Test case ID | Preconditions/input | Expected result | Actual result | Evidence link | Status | Reviewer | Date`.
 
-## 7. Dependencies, assumptions, and risks
+## 7. Requirement-level dependencies, assumptions, and risks
+
+The `REQ-D` series is local to requirements. Project-wide dependencies use the separate `D-01`–`D-09` series in `docs/project-management/risks-and-dependencies.md`.
 
 | ID | Dependency or risk | Planned handling |
 |---|---|---|
-| D-01 | Vehicle telemetry formats and supported parameters vary by vehicle and adapter. | Use a documented input schema and sample/replay fallback; validate an adapter before announcing compatibility. |
-| D-02 | Public diagnostic datasets may not match a consumer vehicle or include enough labeled failures. | Check provenance, license, vehicle coverage, labels, and feature availability before choosing data or model tasks. |
-| D-03 | Weather and routing APIs have coverage, quotas, latency, and licensing constraints. | Document provider terms, requested fields, failure modes, and reproducible example responses. |
-| D-04 | Real vehicle remote control requires compatible authorized services and careful safety testing. | Keep real controls out of the mandatory MVP; use sandbox demonstrations until approvals/integration exist. |
-| D-05 | Incorrect warnings or route advice could lead users to unsafe decisions. | Display evidence, uncertainty, limitations, and clear advisories; do not claim certified safety or medical/mechanical certainty. |
-| D-06 | User requirements are not yet validated with drivers or a client. | Treat current priorities as a team proposal; record future feedback separately from assumptions and revise through review. |
+| REQ-D-01 | Vehicle telemetry formats and supported parameters vary by vehicle and adapter. | Use a documented input schema and sample/replay fallback; validate an adapter before announcing compatibility. |
+| REQ-D-02 | Public diagnostic datasets may not match a consumer vehicle or include enough labeled failures. | Check provenance, license, vehicle coverage, labels, and feature availability before choosing data or model tasks. |
+| REQ-D-03 | Weather and routing APIs have coverage, quotas, latency, and licensing constraints. | Document provider terms, requested fields, failure modes, and reproducible example responses. |
+| REQ-D-04 | Real vehicle remote control requires compatible authorized services and careful safety testing. | Keep real controls out of the mandatory MVP; use sandbox demonstrations until approvals/integration exist. |
+| REQ-D-05 | Incorrect warnings or route advice could lead users to unsafe decisions. | Display evidence, uncertainty, limitations, and clear advisories; do not claim certified safety or medical/mechanical certainty. |
+| REQ-D-06 | Initial driver interviews have been conducted, but the number, recruitment, consent record, and representativeness of participants still require complete documentation, and further validation may be needed. | Preserve anonymized interview evidence with consent safeguards; distinguish observed interview themes from unvalidated design assumptions and review priorities as evidence grows. |
 
 ## 8. Scope exclusions and change control
 
-The initial project does **not** include autonomous driving, guaranteed fault prediction, repair execution, emergency response dispatch, certified route safety, real-world accident reduction claims, or unsupported vehicle actuation. iOS support, production deployment, and additional OEM integration are not mandatory until approved as feasible.
+The initial project does not include autonomous driving, guaranteed fault prediction, repair execution, emergency response dispatch, certified route safety, real-world accident reduction claims, or unsupported vehicle actuation. iOS support, production deployment, and additional OEM integration are not mandatory until approved as feasible.
 
 Changes to mandatory features, priorities, safety constraints, or acceptance criteria should be recorded in the requirements history and linked to a YouTrack task and reviewed Git pull request. Architectural decisions should reference the affected requirement IDs.
 
@@ -130,10 +132,10 @@ Changes to mandatory features, priorities, safety constraints, or acceptance cri
 | Diploma deliverable | Requirements evidence |
 |---|---|
 | Proposal and scope | Section 1; Sections 5 and 8 |
-| Technology comparison | Dependencies D-01 through D-04 and requirements NFR-08, NFR-10 |
+| Technology comparison | Requirements dependencies REQ-D-01 through REQ-D-04 and requirements NFR-08, NFR-10 |
 | Existing system comparison | Functional coverage areas in Section 5 |
-| System context, use case, component diagrams | External connections and functional groups FR-01–FR-20 |
-| UX prototype | User flows FR-02, FR-05, FR-08, FR-11, FR-14, FR-16, FR-20 |
+| System context, use case, component diagrams | External connections and functional groups FR-01–FR-26 |
+| UX prototype | User flows FR-02, FR-05, FR-08, FR-11, FR-13–14, FR-18–20, FR-26 |
 | Verification and evaluation plan | Section 6; measurable FR/NFR acceptance criteria |
 | Project management | Requirement IDs, priorities, risks, and change control |
 

@@ -16,7 +16,7 @@ The diploma project proposes a driver-facing mobile application for vehicle stat
 
 The application provides decision support, not certified vehicle safety assessment, guaranteed fault detection, vehicle repair, autonomous driving, emergency dispatch, or proof of crash reduction. Blizzard Survival Mode does not guarantee detection, connectivity, message delivery, or rescue. The broader diploma product covers all five feature areas. A distinct scenario-based comparison of weather/road-only recommendations against vehicle-health-aware recommendations may be used for research evaluation, but it is not a substitute for application functional testing.
 
-Architecture status: The structure below is a design proposal. Flutter is the team's intended mobile approach; backend language/framework, database, model architecture, API providers, vehicle compatibility, and hosting remain to be confirmed through the technology comparison and implementation work.
+Architecture status: The structure below is a design proposal. Flutter is the planned mobile approach and Node.js is the selected backend runtime. The Node.js framework, database, diagnostic ML integration protocol, external API providers, vehicle compatibility, hosting, and scheduler are not yet finalized or implemented.
 
 ## 2. System context and external actors
 
@@ -43,13 +43,15 @@ Planned diagram: `diagrams/source/system-context.drawio` with readable export un
 
 ## 3. Proposed logical components
 
+Engineering ownership (planned): Yerbolat Aisha leads Node.js backend integration and coordination with the mobile application; Shurenova Karima leads the diagnostic ML service and model interface. Both review and integrate Blizzard Survival Mode backend behavior. Ownership does not imply these components are implemented.
+
 | Component | Responsibility | Main requirement references |
 
 |---|---|---|
 
-| Mobile UI (Flutter — planned) | Vehicle selection, status dashboard, alerts, maintenance history, trip form/results, remote-control availability, understandable error states | FR-01, 02, 05, 08, 10–11, 14, 16, 20; NFR-01, 11 |
+| Mobile UI (Flutter — planned) | Vehicle selection, status dashboard, alerts, maintenance history, trip form/results, remote-control availability, understandable error states | FR-01–02, FR-05, FR-08, FR-10–11, FR-13, FR-18–20, FR-22, FR-26; NFR-01, NFR-11 |
 
-| Application/API layer (technology TBD) | Validates requests, applies access rules, coordinates services and data sources, returns consistent responses | FR-03, 19; NFR-02, 05, 07 |
+| Node.js application/API layer (framework TBD) | Validates requests, applies access rules, coordinates services and data sources, returns consistent responses | FR-03, FR-19, FR-25; NFR-02, NFR-05, NFR-07 |
 
 | Vehicle profile and status service | Stores vehicle metadata, validates telemetry, tracks units and last-update timestamps, distinguishes sample/replay/connected data | FR-01–04; NFR-03 |
 
@@ -57,14 +59,14 @@ Planned diagram: `diagrams/source/system-context.drawio` with readable export un
 
 | Maintenance service | Stores service events and derives next-service suggestions from declared intervals, mileage/history, and supported warnings | FR-08–09 |
 
-| Weather and routing integration adapters | Retrieve/normalize weather and route data; preserve provider and observation/forecast times; detect missing/stale data | FR-10–11, 19; NFR-07 |
+| Weather and routing integration adapters | Retrieve/normalize weather and route data; preserve provider and observation/forecast times; detect missing/stale data | FR-10–11, FR-25; NFR-07 |
 
-| Travel-assessment service | Applies documented weather/road advice and optional vehicle-health constraints; explains selected alternatives and permits “postpone/insufficient information” | FR-12–14; NFR-03 |
+| Travel-assessment service | Applies documented weather/road advice and optional vehicle-health constraints; explains selected alternatives and permits “postpone/insufficient information” | FR-18–20; NFR-03 |
 
 | Blizzard Survival Mode detector and mobile check-in | Evaluates prolonged stationary states, relevant vehicle/temperature/location signals, configurable exclusions and user check-ins; supports help, safe confirmation, and snooze | Blizzard-related FRs (IDs to reconcile with requirements) |
-| Safety session and heartbeat monitor (backend) | Records authorized active sessions, last accepted heartbeat and last reported location; detects overdue check-ins/heartbeats for cautious escalation | Blizzard-related FRs/NFRs (IDs pending) |
-| Emergency contact and notification service | Stores consent/opt-in status, dispatches alerts through approved provider, tracks queued/sent/failed/confirmed statuses when supported | Blizzard-related FRs/NFRs (IDs pending) |
-| Remote-control capability adapter | Reports Available/Unavailable/Not configured; supports clearly labeled mock commands; real commands only with an approved provider, authentication, confirmation and status verification | FR-16–18; NFR-05 |
+| Safety session and heartbeat monitor (backend) | Records authorized active sessions, last accepted heartbeat and last reported location; detects overdue check-ins/heartbeats for cautious escalation | FR-12–17; NFR-13–15 |
+| Emergency contact and notification service | Stores consent/opt-in status, dispatches alerts through approved provider, tracks queued/sent/failed/confirmed statuses when supported | FR-12–17; NFR-13–15 |
+| Remote-control capability adapter | Reports Available/Unavailable/Not configured; supports clearly labeled mock commands; real commands only with an approved provider, authentication, confirmation and status verification | FR-22–24; NFR-05 |
 
 | Data storage (technology TBD) | Persists profiles, maintenance records, documented scenario inputs, result provenance, and authorized local settings | FR-01, 08; NFR-03, 06 |
 
@@ -128,13 +130,13 @@ The planned evaluation uses the same scenario IDs and candidate routes for both 
 
 1. A driver explicitly enables a safety-monitoring session and configures emergency contacts. Contacts must accept an invitation before alerts may be sent to them. A session must clearly show whether monitoring is active or limited by permissions, power or connectivity.
 2. The mobile detector evaluates *available* speed, time stationary (initial example threshold: 20 minutes), engine running/recently running when known, outside temperature (OBD-II when supported or weather API), location outside known safe places/city areas, and optional severe-weather context. These conditions are proposed and must be validated; missing signals are not silently treated as proof of danger.
-3. Potential danger moves the session from `Normal` to `Suspected` and triggers a check-in with audible/visual cues: **I'm fine** (temporarily snooze), **I need help** (immediate escalation), or no response (repeat after a configurable interval, initially 2–3 minutes). While active, periodic follow-up check-ins are planned (e.g., 30–60 minutes), subject to platform constraints.
-4. The mobile client sends timestamped heartbeats and last-known status/location while connectivity is available. The backend monitors the last *received* heartbeat and authorization/session state. An overdue heartbeat is treated only as **possible loss of contact**, not confirmation that the driver is stranded.
-5. If escalation is warranted, the backend attempts a provider notification to opted-in contacts containing a map link, observation/alert time, last movement time when known, outdoor temperature and phone battery level when known, and clear wording such as **No response to a safety check-in**. The alert identifies readings as last-known rather than live when stale.
+3. Potential danger moves the session from `Normal` to `Suspected` and triggers a check-in with audible/visual cues: I'm fine (temporarily snooze), I need help (immediate escalation), or no response (repeat after a configurable interval, initially 2–3 minutes). While active, periodic follow-up check-ins are planned (e.g., 30–60 minutes), subject to platform constraints.
+4. The mobile client sends timestamped heartbeats and last-known status/location while connectivity is available. The backend monitors the last *received* heartbeat and authorization/session state. An overdue heartbeat is treated only as possible loss of contact, not confirmation that the driver is stranded.
+5. If escalation is warranted, the backend attempts a provider notification to opted-in contacts containing a map link, observation/alert time, last movement time when known, outdoor temperature and phone battery level when known, and clear wording such as No response to a safety check-in. The alert identifies readings as last-known rather than live when stale.
 6. Outgoing events use explicit statuses such as `queued`, `sent_to_provider`, `failed`, and `delivered` only when provider acknowledgment truly supports delivery confirmation. With no connectivity, the mobile client may queue alerts locally for later retry; server-side escalation can use only data and heartbeats previously received by the server.
-7. The app provides a manual **Call 112** action; it never automatically calls emergency services. Location sharing is limited to authorized safety alerts; retention, encryption and deletion settings require final policy definition.
+7. The app provides a manual Call 112 action; it never automatically calls emergency services. Location sharing is limited to authorized safety alerts; retention, encryption and deletion settings require final policy definition.
 
-**Prototype boundaries:** Detection and check-ins may be demonstrated with clearly labeled simulated OBD/GPS/weather inputs and test opt-in contacts through a test Telegram bot. SMS gateway integration, unattended native SMS, iOS continuous background operation, and real-life rescue performance are **not** asserted. Android foreground service behavior and iOS restrictions must be investigated and documented. Safety sessions must not claim to remain active if the OS has stopped monitoring.
+Prototype boundaries: Detection and check-ins may be demonstrated with clearly labeled simulated OBD/GPS/weather inputs and test opt-in contacts through a test Telegram bot. SMS gateway integration, unattended native SMS, iOS continuous background operation, and real-life rescue performance are not asserted. Android foreground service behavior and iOS restrictions must be investigated and documented. Safety sessions must not claim to remain active if the OS has stopped monitoring.
 
 ## 5. Planned interface and data contracts
 
@@ -160,7 +162,7 @@ These are design-level example fields, not running endpoints or confirmed extern
 | EmergencyContact / Alert | `contact_id`, `opt_in_status`, `alert_id`, `session_id`, `reason`, `created_at`, `delivery_status`, `last_location_timestamp` | Do not transmit to non-consenting contacts; provider delivery vs successful request clearly differentiated |
 | ControlCapability / Command | `vehicle_id`, `command_type`, `capability_state`, `execution_mode`, `confirmation`, `provider_status` | Mode clearly `mock` or verified `authorized`; no unsupported commands |
 
-The finalized schema and API endpoints will be documented only after choosing the backend, storage, and provider integrations.
+The Node.js runtime is selected. The finalized API endpoints and persistence schema will be documented after choosing the Node.js framework, database, and provider integrations.
 
 ## 6. Data storage and confidentiality
 
@@ -181,12 +183,12 @@ The finalized schema and API endpoints will be documented only after choosing th
 
 |---|---|---|
 
-| Safety and honest output | Unknown codes and missing/old data remain unknown; advisory language, reasons and limitations included | FR-05, FR-12–14, FR-19 |
+| Safety and honest output | Unknown codes and missing/old data remain unknown; advisory language, reasons and limitations included | FR-05, FR-17–20, FR-25 |
 
-| Security | Authorized provider boundary, confirmation before actions, mock-only initial implementation, least privilege | FR-16–18; NFR-04–05 |
+| Security | Authorized provider boundary, confirmation before actions, mock-only initial implementation, least privilege | FR-22–24; NFR-04–05 |
 
 | Emergency escalation and false positives | Missing mobile heartbeat is ambiguous; check-in/snooze, configurable timers, opt-in, explicit statuses, offline queue and server-side stale-state handling | Blizzard-related FR/NFR; simulation with failure cases |
-| Reliability | Explicit network/provider error, retry where appropriate, stale indicators, no fabricated fallback weather | FR-19; NFR-07 |
+| Reliability | Explicit network/provider error, retry where appropriate, stale indicators, no fabricated fallback weather | FR-17, FR-25; NFR-07 |
 
 | Traceability | Record scenario ID, provenance, decision configuration, rule/model version and evaluation output | NFR-03 |
 
@@ -204,7 +206,7 @@ src/
 
   mobile/       # Flutter app: planned, currently may contain README placeholder
 
-  backend/      # API and application services: technology not yet finalized
+  backend/      # Node.js API and application services; framework not yet finalized
 
   ml/           # Diagnostic training/inference assets: not implemented yet
 
@@ -238,7 +240,7 @@ This is a logical mapping, not evidence that the services, diagrams or tests alr
 
 | Mobile application | Flutter is planned; supported OS/device target must be documented |
 
-| Backend and persistence | Compare feasible alternatives and record selected solution |
+| Backend and persistence | Node.js runtime selected; compare framework, hosting, scheduler, and persistence alternatives |
 
 | Automotive data | Verify dataset license, input features and vehicle compatibility; do not claim live OBD-II access |
 
