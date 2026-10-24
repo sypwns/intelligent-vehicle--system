@@ -17,8 +17,8 @@ Each student has a leading engineering area, but architecture, integration, safe
 | Vehicle monitoring dashboard and telemetry adapters | Shurenova Karima | Yerbolat Aisha: diagnostic input definition | Documented input contracts, replay tests, dashboard with freshness labels |
 | Weather conditions, routing and travel-risk interface | Shurenova Karima | Yerbolat Aisha: health indicators and evaluation support | Source/provenance records, route scenarios, integration tests |
 | Authorized control capability view and sandbox workflow | Shurenova Karima | Yerbolat Aisha: security/requirements review | Capability matrix, mock-mode and authorization tests |
-| ML-based anomaly/fault diagnosis | Yerbolat Aisha | Shurenova Karima: UI/API integration | Dataset provenance, baseline, model card or equivalent, held-out test results when available |
-| Diagnostic explanations and intelligent maintenance assistant | Yerbolat Aisha | Shurenova Karima: interface integration | Explained example outputs, maintenance scenarios, acceptance tests |
+| ML-based anomaly/fault diagnosis | Shurenova Karima | Yerbolat Aisha: Node.js integration and API-contract review | Dataset provenance, baseline, model card or equivalent, held-out test results when available |
+| Diagnostic explanations and intelligent maintenance assistant | Shurenova Karima | Yerbolat Aisha: backend/API integration and requirements review | Explained example outputs, maintenance scenarios, acceptance tests |
 | Requirements specification | Yerbolat Aisha | Shurenova Karima: user flow and feasibility review | Requirements with identifiers, priorities and testable acceptance criteria |
 | Architecture description, decisions and component diagram | Yerbolat Aisha | Shurenova Karima: mobile/backend/integration review | Markdown decisions, editable `.drawio`, exported PNG/SVG |
 | Project proposal | Shurenova Karima | Yerbolat Aisha: technical scope check | Proposal with title, aims, users, scope and assumptions |
@@ -26,8 +26,10 @@ Each student has a leading engineering area, but architecture, integration, safe
 | Literature review | Yerbolat Aisha | Shurenova Karima: weather/routing coverage review | Critical review with verified DOI/citation details |
 | UX mockups and use-case diagram | Shurenova Karima | Yerbolat Aisha: diagnostic use cases | Editable source/link and readable exports |
 | System context diagram | Shared | Both review actor/provider boundaries | One agreed editable source and readable export |
-| Blizzard Survival Mode | Shared | Karima: UI, GPS, local check-ins and notification integration; Aisha: telemetry conditions, rule/test cases; both: Node.js heartbeat/consent and escalation review | Documented state flow, simulated positive/negative cases, consent and failure-handling evidence |
-| Node.js backend and database integration | Shared until assigned in YouTrack | Define ownership per endpoint/service | API contracts, validation tests, environment placeholders and reviewed commits |
+| Blizzard Survival Mode | Shared | Karima: diagnostic health signals, model interface and mobile check-in collaboration; Aisha: Node.js integration, coordination with mobile app and backend session endpoints; both: heartbeat, consent and escalation review | Documented state flow, simulated positive/negative cases, consent and failure-handling evidence |
+| Node.js backend integration and mobile API coordination | Yerbolat Aisha | Shurenova Karima: diagnostic ML interface; both: Blizzard Mode backend review | API contracts, validation tests, environment placeholders and reviewed commits |
+| Diagnostic ML service and model interface | Shurenova Karima | Yerbolat Aisha: Node.js/ML interface contracts and validation | Defined inference schemas, versioning, model and API contract tests |
+| Database and persistent storage selection | Yerbolat Aisha (integration lead) | Shurenova Karima: ML storage needs; both: privacy review | Reviewed storage decision and safe configuration |
 | Test planning, integration, privacy and final delivery | Shared | Each tests the other's changes where feasible | Test case records, defects, pull-request reviews, release/tag evidence |
 
 ## Collaboration workflow
@@ -41,5 +43,5 @@ Each student has a leading engineering area, but architecture, integration, safe
 ## Escalation and sign-off
 
 - Vehicle actuation, emergency escalation, personal location sharing, and any change that affects safety need explicit joint review and documented limitations.
-- Node.js is the selected backend runtime. Specific framework, storage, hosting, and heartbeat scheduler choices are not yet confirmed by this document.
+- Node.js is the selected backend runtime, led by Aisha. Karima leads diagnostic ML interface implementation. Both review Blizzard Mode backend behavior. The specific Node.js framework, storage, hosting, and heartbeat scheduler are not yet confirmed.
 - Reassigning work is permitted if it is recorded in YouTrack and reflected in this file.
